@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.education.hjrz.dao.QuestiontypeMapper" >
+  <resultMap id="BaseResultMap" type="com.education.hjrz.entity.Questiontype" >
+    <result column="id" property="id" jdbcType="BIGINT" />
+    <result column="courseId" property="courseId" jdbcType="BIGINT" />
+    <result column="questionTypeName" property="questionTypeName" jdbcType="VARCHAR" />
+    <result column="questionTypeFlag" property="questionTypeFlag" jdbcType="INTEGER" />
+    <result column="sortNo" property="sortNo" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="kuPrice" property="kuPrice" jdbcType="INTEGER" />
+    <result column="withJxPrice" property="withJxPrice" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="com.education.hjrz.entity.Questiontype" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into questiontype (courseId, questionTypeName, questionTypeFlag, 
+      sortNo, status, kuPrice, 
+      withJxPrice)
+    values (#{courseId,jdbcType=BIGINT}, #{questionTypeName,jdbcType=VARCHAR}, #{questionTypeFlag,jdbcType=INTEGER}, 
+      #{sortNo,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{kuPrice,jdbcType=INTEGER}, 
+      #{withJxPrice,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.education.hjrz.entity.Questiontype" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into questiontype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="courseId != null" >
+        courseId,
+      </if>
+      <if test="questionTypeName != null" >
+        questionTypeName,
+      </if>
+      <if test="questionTypeFlag != null" >
+        questionTypeFlag,
+      </if>
+      <if test="sortNo != null" >
+        sortNo,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="kuPrice != null" >
+        kuPrice,
+      </if>
+      <if test="withJxPrice != null" >
+        withJxPrice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="courseId != null" >
+        #{courseId,jdbcType=BIGINT},
+      </if>
+      <if test="questionTypeName != null" >
+        #{questionTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="questionTypeFlag != null" >
+        #{questionTypeFlag,jdbcType=INTEGER},
+      </if>
+      <if test="sortNo != null" >
+        #{sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="kuPrice != null" >
+        #{kuPrice,jdbcType=INTEGER},
+      </if>
+      <if test="withJxPrice != null" >
+        #{withJxPrice,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

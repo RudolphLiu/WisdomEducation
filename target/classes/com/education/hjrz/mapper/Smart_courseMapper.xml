@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.education.hjrz.dao.Smart_courseMapper" >
+  <resultMap id="BaseResultMap" type="com.education.hjrz.entity.Smart_course" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="CourseName" property="courseName" jdbcType="VARCHAR" />
+    <result column="isDelete" property="isDelete" jdbcType="BIT" />
+    <result column="CourseID" property="courseID" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, CourseName, isDelete, CourseID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from smart_course
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from smart_course
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.education.hjrz.entity.Smart_course" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into smart_course (CourseName, isDelete, CourseID
+      )
+    values (#{courseName,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}, #{courseID,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.education.hjrz.entity.Smart_course" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into smart_course
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="courseName != null" >
+        CourseName,
+      </if>
+      <if test="isDelete != null" >
+        isDelete,
+      </if>
+      <if test="courseID != null" >
+        CourseID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="courseName != null" >
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="courseID != null" >
+        #{courseID,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.education.hjrz.entity.Smart_course" >
+    update smart_course
+    <set >
+      <if test="courseName != null" >
+        CourseName = #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        isDelete = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="courseID != null" >
+        CourseID = #{courseID,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.education.hjrz.entity.Smart_course" >
+    update smart_course
+    set CourseName = #{courseName,jdbcType=VARCHAR},
+      isDelete = #{isDelete,jdbcType=BIT},
+      CourseID = #{courseID,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

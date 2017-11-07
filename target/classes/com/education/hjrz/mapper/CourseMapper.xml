@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.education.hjrz.dao.CourseMapper" >
+  <resultMap id="BaseResultMap" type="com.education.hjrz.entity.Course" >
+    <result column="id" property="id" jdbcType="BIGINT" />
+    <result column="studyType" property="studyType" jdbcType="INTEGER" />
+    <result column="courseName" property="courseName" jdbcType="VARCHAR" />
+    <result column="tikuFlag" property="tikuFlag" jdbcType="INTEGER" />
+    <result column="resourceFlag" property="resourceFlag" jdbcType="INTEGER" />
+    <result column="evaluationFlag" property="evaluationFlag" jdbcType="INTEGER" />
+    <result column="paperDiscount" property="paperDiscount" jdbcType="REAL" />
+    <result column="paperAnaDiscount" property="paperAnaDiscount" jdbcType="REAL" />
+    <result column="guidLearnPrice" property="guidLearnPrice" jdbcType="INTEGER" />
+    <result column="courseWarePrice" property="courseWarePrice" jdbcType="INTEGER" />
+    <result column="teachPlanPrice" property="teachPlanPrice" jdbcType="INTEGER" />
+    <result column="sortNo" property="sortNo" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="com.education.hjrz.entity.Course" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into course (studyType, courseName, tikuFlag, 
+      resourceFlag, evaluationFlag, paperDiscount, 
+      paperAnaDiscount, guidLearnPrice, courseWarePrice, 
+      teachPlanPrice, sortNo, status
+      )
+    values (#{studyType,jdbcType=INTEGER}, #{courseName,jdbcType=VARCHAR}, #{tikuFlag,jdbcType=INTEGER}, 
+      #{resourceFlag,jdbcType=INTEGER}, #{evaluationFlag,jdbcType=INTEGER}, #{paperDiscount,jdbcType=REAL}, 
+      #{paperAnaDiscount,jdbcType=REAL}, #{guidLearnPrice,jdbcType=INTEGER}, #{courseWarePrice,jdbcType=INTEGER}, 
+      #{teachPlanPrice,jdbcType=INTEGER}, #{sortNo,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.education.hjrz.entity.Course" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="studyType != null" >
+        studyType,
+      </if>
+      <if test="courseName != null" >
+        courseName,
+      </if>
+      <if test="tikuFlag != null" >
+        tikuFlag,
+      </if>
+      <if test="resourceFlag != null" >
+        resourceFlag,
+      </if>
+      <if test="evaluationFlag != null" >
+        evaluationFlag,
+      </if>
+      <if test="paperDiscount != null" >
+        paperDiscount,
+      </if>
+      <if test="paperAnaDiscount != null" >
+        paperAnaDiscount,
+      </if>
+      <if test="guidLearnPrice != null" >
+        guidLearnPrice,
+      </if>
+      <if test="courseWarePrice != null" >
+        courseWarePrice,
+      </if>
+      <if test="teachPlanPrice != null" >
+        teachPlanPrice,
+      </if>
+      <if test="sortNo != null" >
+        sortNo,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="studyType != null" >
+        #{studyType,jdbcType=INTEGER},
+      </if>
+      <if test="courseName != null" >
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="tikuFlag != null" >
+        #{tikuFlag,jdbcType=INTEGER},
+      </if>
+      <if test="resourceFlag != null" >
+        #{resourceFlag,jdbcType=INTEGER},
+      </if>
+      <if test="evaluationFlag != null" >
+        #{evaluationFlag,jdbcType=INTEGER},
+      </if>
+      <if test="paperDiscount != null" >
+        #{paperDiscount,jdbcType=REAL},
+      </if>
+      <if test="paperAnaDiscount != null" >
+        #{paperAnaDiscount,jdbcType=REAL},
+      </if>
+      <if test="guidLearnPrice != null" >
+        #{guidLearnPrice,jdbcType=INTEGER},
+      </if>
+      <if test="courseWarePrice != null" >
+        #{courseWarePrice,jdbcType=INTEGER},
+      </if>
+      <if test="teachPlanPrice != null" >
+        #{teachPlanPrice,jdbcType=INTEGER},
+      </if>
+      <if test="sortNo != null" >
+        #{sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

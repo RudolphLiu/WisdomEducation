@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.education.hjrz.dao.QuestionmonMapper" >
+  <resultMap id="BaseResultMap" type="com.education.hjrz.entity.Questionmon" >
+    <result column="questionId" property="questionId" jdbcType="BIGINT" />
+    <result column="courseId" property="courseId" jdbcType="BIGINT" />
+    <result column="optionCount" property="optionCount" jdbcType="INTEGER" />
+    <result column="subQuestionFlag" property="subQuestionFlag" jdbcType="INTEGER" />
+    <result column="questionTypeId" property="questionTypeId" jdbcType="BIGINT" />
+    <result column="difficulty" property="difficulty" jdbcType="INTEGER" />
+    <result column="difficultyValue" property="difficultyValue" jdbcType="REAL" />
+    <result column="firstKnowledgeId" property="firstKnowledgeId" jdbcType="BIGINT" />
+    <result column="secondKnowledgeId" property="secondKnowledgeId" jdbcType="BIGINT" />
+    <result column="thirdKnowledgeId" property="thirdKnowledgeId" jdbcType="BIGINT" />
+    <result column="zujuanCount" property="zujuanCount" jdbcType="INTEGER" />
+    <result column="commentCount" property="commentCount" jdbcType="INTEGER" />
+    <result column="commentValue" property="commentValue" jdbcType="INTEGER" />
+    <result column="sumCommentValue" property="sumCommentValue" jdbcType="INTEGER" />
+    <result column="shareCount" property="shareCount" jdbcType="INTEGER" />
+    <result column="questionFrom" property="questionFrom" jdbcType="VARCHAR" />
+    <result column="uploadFlag" property="uploadFlag" jdbcType="INTEGER" />
+    <result column="uploadId" property="uploadId" jdbcType="BIGINT" />
+    <result column="uploadCode" property="uploadCode" jdbcType="VARCHAR" />
+    <result column="uploadName" property="uploadName" jdbcType="VARCHAR" />
+    <result column="uploadSchoolId" property="uploadSchoolId" jdbcType="BIGINT" />
+    <result column="uploadImg" property="uploadImg" jdbcType="VARCHAR" />
+    <result column="uploadDate" property="uploadDate" jdbcType="TIMESTAMP" />
+    <result column="secondAuditId" property="secondAuditId" jdbcType="BIGINT" />
+    <result column="secondAuditCode" property="secondAuditCode" jdbcType="VARCHAR" />
+    <result column="secondAuditName" property="secondAuditName" jdbcType="VARCHAR" />
+    <result column="secondAuditSchoolId" property="secondAuditSchoolId" jdbcType="BIGINT" />
+    <result column="secondAuditImg" property="secondAuditImg" jdbcType="VARCHAR" />
+    <result column="secondAuditDate" property="secondAuditDate" jdbcType="TIMESTAMP" />
+    <result column="goodFlag" property="goodFlag" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="sortNo" property="sortNo" jdbcType="INTEGER" />
+    <result column="inputDate" property="inputDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.education.hjrz.entity.QuestionmonWithBLOBs" extends="BaseResultMap" >
+    <result column="bodyHtml" property="bodyHtml" jdbcType="LONGVARCHAR" />
+    <result column="bodyText" property="bodyText" jdbcType="LONGVARCHAR" />
+    <result column="optionHtmlList" property="optionHtmlList" jdbcType="LONGVARCHAR" />
+    <result column="answer" property="answer" jdbcType="LONGVARCHAR" />
+    <result column="answerHtml" property="answerHtml" jdbcType="LONGVARCHAR" />
+    <result column="anylysisHtml" property="anylysisHtml" jdbcType="LONGVARCHAR" />
+    <result column="commentHtml" property="commentHtml" jdbcType="LONGVARCHAR" />
+    <result column="subQuestionMon" property="subQuestionMon" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Blob_Column_List" >
+    bodyHtml, bodyText, optionHtmlList, answer, answerHtml, anylysisHtml, commentHtml, 
+    subQuestionMon
+  </sql>
+  <insert id="insert" parameterType="com.education.hjrz.entity.QuestionmonWithBLOBs" >
+    <selectKey resultType="java.lang.Long" keyProperty="questionId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into questionmon (courseId, optionCount, subQuestionFlag, 
+      questionTypeId, difficulty, difficultyValue, 
+      firstKnowledgeId, secondKnowledgeId, thirdKnowledgeId, 
+      zujuanCount, commentCount, commentValue, 
+      sumCommentValue, shareCount, questionFrom, 
+      uploadFlag, uploadId, uploadCode, 
+      uploadName, uploadSchoolId, uploadImg, 
+      uploadDate, secondAuditId, secondAuditCode, 
+      secondAuditName, secondAuditSchoolId, secondAuditImg, 
+      secondAuditDate, goodFlag, status, 
+      sortNo, inputDate, bodyHtml, 
+      bodyText, optionHtmlList, answer, 
+      answerHtml, anylysisHtml, commentHtml, 
+      subQuestionMon)
+    values (#{courseId,jdbcType=BIGINT}, #{optionCount,jdbcType=INTEGER}, #{subQuestionFlag,jdbcType=INTEGER}, 
+      #{questionTypeId,jdbcType=BIGINT}, #{difficulty,jdbcType=INTEGER}, #{difficultyValue,jdbcType=REAL}, 
+      #{firstKnowledgeId,jdbcType=BIGINT}, #{secondKnowledgeId,jdbcType=BIGINT}, #{thirdKnowledgeId,jdbcType=BIGINT}, 
+      #{zujuanCount,jdbcType=INTEGER}, #{commentCount,jdbcType=INTEGER}, #{commentValue,jdbcType=INTEGER}, 
+      #{sumCommentValue,jdbcType=INTEGER}, #{shareCount,jdbcType=INTEGER}, #{questionFrom,jdbcType=VARCHAR}, 
+      #{uploadFlag,jdbcType=INTEGER}, #{uploadId,jdbcType=BIGINT}, #{uploadCode,jdbcType=VARCHAR}, 
+      #{uploadName,jdbcType=VARCHAR}, #{uploadSchoolId,jdbcType=BIGINT}, #{uploadImg,jdbcType=VARCHAR}, 
+      #{uploadDate,jdbcType=TIMESTAMP}, #{secondAuditId,jdbcType=BIGINT}, #{secondAuditCode,jdbcType=VARCHAR}, 
+      #{secondAuditName,jdbcType=VARCHAR}, #{secondAuditSchoolId,jdbcType=BIGINT}, #{secondAuditImg,jdbcType=VARCHAR}, 
+      #{secondAuditDate,jdbcType=TIMESTAMP}, #{goodFlag,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{sortNo,jdbcType=INTEGER}, #{inputDate,jdbcType=TIMESTAMP}, #{bodyHtml,jdbcType=LONGVARCHAR}, 
+      #{bodyText,jdbcType=LONGVARCHAR}, #{optionHtmlList,jdbcType=LONGVARCHAR}, #{answer,jdbcType=LONGVARCHAR}, 
+      #{answerHtml,jdbcType=LONGVARCHAR}, #{anylysisHtml,jdbcType=LONGVARCHAR}, #{commentHtml,jdbcType=LONGVARCHAR}, 
+      #{subQuestionMon,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.education.hjrz.entity.QuestionmonWithBLOBs" >
+    <selectKey resultType="java.lang.Long" keyProperty="questionId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into questionmon
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="courseId != null" >
+        courseId,
+      </if>
+      <if test="optionCount != null" >
+        optionCount,
+      </if>
+      <if test="subQuestionFlag != null" >
+        subQuestionFlag,
+      </if>
+      <if test="questionTypeId != null" >
+        questionTypeId,
+      </if>
+      <if test="difficulty != null" >
+        difficulty,
+      </if>
+      <if test="difficultyValue != null" >
+        difficultyValue,
+      </if>
+      <if test="firstKnowledgeId != null" >
+        firstKnowledgeId,
+      </if>
+      <if test="secondKnowledgeId != null" >
+        secondKnowledgeId,
+      </if>
+      <if test="thirdKnowledgeId != null" >
+        thirdKnowledgeId,
+      </if>
+      <if test="zujuanCount != null" >
+        zujuanCount,
+      </if>
+      <if test="commentCount != null" >
+        commentCount,
+      </if>
+      <if test="commentValue != null" >
+        commentValue,
+      </if>
+      <if test="sumCommentValue != null" >
+        sumCommentValue,
+      </if>
+      <if test="shareCount != null" >
+        shareCount,
+      </if>
+      <if test="questionFrom != null" >
+        questionFrom,
+      </if>
+      <if test="uploadFlag != null" >
+        uploadFlag,
+      </if>
+      <if test="uploadId != null" >
+        uploadId,
+      </if>
+      <if test="uploadCode != null" >
+        uploadCode,
+      </if>
+      <if test="uploadName != null" >
+        uploadName,
+      </if>
+      <if test="uploadSchoolId != null" >
+        uploadSchoolId,
+      </if>
+      <if test="uploadImg != null" >
+        uploadImg,
+      </if>
+      <if test="uploadDate != null" >
+        uploadDate,
+      </if>
+      <if test="secondAuditId != null" >
+        secondAuditId,
+      </if>
+      <if test="secondAuditCode != null" >
+        secondAuditCode,
+      </if>
+      <if test="secondAuditName != null" >
+        secondAuditName,
+      </if>
+      <if test="secondAuditSchoolId != null" >
+        secondAuditSchoolId,
+      </if>
+      <if test="secondAuditImg != null" >
+        secondAuditImg,
+      </if>
+      <if test="secondAuditDate != null" >
+        secondAuditDate,
+      </if>
+      <if test="goodFlag != null" >
+        goodFlag,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="sortNo != null" >
+        sortNo,
+      </if>
+      <if test="inputDate != null" >
+        inputDate,
+      </if>
+      <if test="bodyHtml != null" >
+        bodyHtml,
+      </if>
+      <if test="bodyText != null" >
+        bodyText,
+      </if>
+      <if test="optionHtmlList != null" >
+        optionHtmlList,
+      </if>
+      <if test="answer != null" >
+        answer,
+      </if>
+      <if test="answerHtml != null" >
+        answerHtml,
+      </if>
+      <if test="anylysisHtml != null" >
+        anylysisHtml,
+      </if>
+      <if test="commentHtml != null" >
+        commentHtml,
+      </if>
+      <if test="subQuestionMon != null" >
+        subQuestionMon,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="courseId != null" >
+        #{courseId,jdbcType=BIGINT},
+      </if>
+      <if test="optionCount != null" >
+        #{optionCount,jdbcType=INTEGER},
+      </if>
+      <if test="subQuestionFlag != null" >
+        #{subQuestionFlag,jdbcType=INTEGER},
+      </if>
+      <if test="questionTypeId != null" >
+        #{questionTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="difficulty != null" >
+        #{difficulty,jdbcType=INTEGER},
+      </if>
+      <if test="difficultyValue != null" >
+        #{difficultyValue,jdbcType=REAL},
+      </if>
+      <if test="firstKnowledgeId != null" >
+        #{firstKnowledgeId,jdbcType=BIGINT},
+      </if>
+      <if test="secondKnowledgeId != null" >
+        #{secondKnowledgeId,jdbcType=BIGINT},
+      </if>
+      <if test="thirdKnowledgeId != null" >
+        #{thirdKnowledgeId,jdbcType=BIGINT},
+      </if>
+      <if test="zujuanCount != null" >
+        #{zujuanCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentCount != null" >
+        #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentValue != null" >
+        #{commentValue,jdbcType=INTEGER},
+      </if>
+      <if test="sumCommentValue != null" >
+        #{sumCommentValue,jdbcType=INTEGER},
+      </if>
+      <if test="shareCount != null" >
+        #{shareCount,jdbcType=INTEGER},
+      </if>
+      <if test="questionFrom != null" >
+        #{questionFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadFlag != null" >
+        #{uploadFlag,jdbcType=INTEGER},
+      </if>
+      <if test="uploadId != null" >
+        #{uploadId,jdbcType=BIGINT},
+      </if>
+      <if test="uploadCode != null" >
+        #{uploadCode,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadName != null" >
+        #{uploadName,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadSchoolId != null" >
+        #{uploadSchoolId,jdbcType=BIGINT},
+      </if>
+      <if test="uploadImg != null" >
+        #{uploadImg,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadDate != null" >
+        #{uploadDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="secondAuditId != null" >
+        #{secondAuditId,jdbcType=BIGINT},
+      </if>
+      <if test="secondAuditCode != null" >
+        #{secondAuditCode,jdbcType=VARCHAR},
+      </if>
+      <if test="secondAuditName != null" >
+        #{secondAuditName,jdbcType=VARCHAR},
+      </if>
+      <if test="secondAuditSchoolId != null" >
+        #{secondAuditSchoolId,jdbcType=BIGINT},
+      </if>
+      <if test="secondAuditImg != null" >
+        #{secondAuditImg,jdbcType=VARCHAR},
+      </if>
+      <if test="secondAuditDate != null" >
+        #{secondAuditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodFlag != null" >
+        #{goodFlag,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sortNo != null" >
+        #{sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="inputDate != null" >
+        #{inputDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bodyHtml != null" >
+        #{bodyHtml,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="bodyText != null" >
+        #{bodyText,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="optionHtmlList != null" >
+        #{optionHtmlList,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answer != null" >
+        #{answer,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answerHtml != null" >
+        #{answerHtml,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="anylysisHtml != null" >
+        #{anylysisHtml,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="commentHtml != null" >
+        #{commentHtml,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="subQuestionMon != null" >
+        #{subQuestionMon,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

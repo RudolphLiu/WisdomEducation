@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.education.hjrz.dao.Smart_knowledge_infoMapper" >
+  <resultMap id="BaseResultMap" type="com.education.hjrz.entity.Smart_knowledge_info" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="PKnow" property="PKnow" jdbcType="INTEGER" />
+    <result column="KnowType" property="knowType" jdbcType="INTEGER" />
+    <result column="TopicNum" property="topicNum" jdbcType="INTEGER" />
+    <result column="Level" property="level" jdbcType="INTEGER" />
+    <result column="isDelete" property="isDelete" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, Name, PKnow, KnowType, TopicNum, Level, isDelete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from smart_knowledge_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from smart_knowledge_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.education.hjrz.entity.Smart_knowledge_info" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into smart_knowledge_info (Name, PKnow, KnowType, 
+      TopicNum, Level, isDelete
+      )
+    values (#{name,jdbcType=VARCHAR}, #{PKnow,jdbcType=INTEGER}, #{knowType,jdbcType=INTEGER}, 
+      #{topicNum,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, #{isDelete,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.education.hjrz.entity.Smart_knowledge_info" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into smart_knowledge_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        Name,
+      </if>
+      <if test="PKnow != null" >
+        PKnow,
+      </if>
+      <if test="knowType != null" >
+        KnowType,
+      </if>
+      <if test="topicNum != null" >
+        TopicNum,
+      </if>
+      <if test="level != null" >
+        Level,
+      </if>
+      <if test="isDelete != null" >
+        isDelete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="PKnow != null" >
+        #{PKnow,jdbcType=INTEGER},
+      </if>
+      <if test="knowType != null" >
+        #{knowType,jdbcType=INTEGER},
+      </if>
+      <if test="topicNum != null" >
+        #{topicNum,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.education.hjrz.entity.Smart_knowledge_info" >
+    update smart_knowledge_info
+    <set >
+      <if test="name != null" >
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="PKnow != null" >
+        PKnow = #{PKnow,jdbcType=INTEGER},
+      </if>
+      <if test="knowType != null" >
+        KnowType = #{knowType,jdbcType=INTEGER},
+      </if>
+      <if test="topicNum != null" >
+        TopicNum = #{topicNum,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        Level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        isDelete = #{isDelete,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.education.hjrz.entity.Smart_knowledge_info" >
+    update smart_knowledge_info
+    set Name = #{name,jdbcType=VARCHAR},
+      PKnow = #{PKnow,jdbcType=INTEGER},
+      KnowType = #{knowType,jdbcType=INTEGER},
+      TopicNum = #{topicNum,jdbcType=INTEGER},
+      Level = #{level,jdbcType=INTEGER},
+      isDelete = #{isDelete,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

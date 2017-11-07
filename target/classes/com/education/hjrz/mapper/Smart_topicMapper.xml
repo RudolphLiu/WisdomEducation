@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.education.hjrz.dao.Smart_topicMapper" >
+  <resultMap id="BaseResultMap" type="com.education.hjrz.entity.Smart_topic" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Type" property="type" jdbcType="BIT" />
+    <result column="InputDate" property="inputDate" jdbcType="DATE" />
+    <result column="isDelete" property="isDelete" jdbcType="BIT" />
+    <result column="Difficulty" property="difficulty" jdbcType="INTEGER" />
+    <result column="WrongTimes" property="wrongTimes" jdbcType="INTEGER" />
+    <result column="TotalTimes" property="totalTimes" jdbcType="INTEGER" />
+    <result column="ErrorRate" property="errorRate" jdbcType="DOUBLE" />
+    <result column="CommentCount" property="commentCount" jdbcType="INTEGER" />
+    <result column="CommentValue" property="commentValue" jdbcType="INTEGER" />
+    <result column="QuestionFrom" property="questionFrom" jdbcType="VARCHAR" />
+    <result column="ShareCount" property="shareCount" jdbcType="INTEGER" />
+    <result column="SumCommentValue" property="sumCommentValue" jdbcType="INTEGER" />
+    <result column="UploadCode" property="uploadCode" jdbcType="VARCHAR" />
+    <result column="UploadDate" property="uploadDate" jdbcType="TIMESTAMP" />
+    <result column="UploadFlag" property="uploadFlag" jdbcType="INTEGER" />
+    <result column="UploadId" property="uploadId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.education.hjrz.entity.Smart_topicWithBLOBs" extends="BaseResultMap" >
+    <result column="Content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="Options" property="options" jdbcType="LONGVARCHAR" />
+    <result column="Reference" property="reference" jdbcType="LONGVARCHAR" />
+    <result column="Anylysis" property="anylysis" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, Type, InputDate, isDelete, Difficulty, WrongTimes, TotalTimes, ErrorRate, CommentCount, 
+    CommentValue, QuestionFrom, ShareCount, SumCommentValue, UploadCode, UploadDate, 
+    UploadFlag, UploadId
+  </sql>
+  <sql id="Blob_Column_List" >
+    Content, Options, Reference, Anylysis
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from smart_topic
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from smart_topic
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.education.hjrz.entity.Smart_topicWithBLOBs" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into smart_topic (Type, InputDate, isDelete, 
+      Difficulty, WrongTimes, TotalTimes, 
+      ErrorRate, CommentCount, CommentValue, 
+      QuestionFrom, ShareCount, SumCommentValue, 
+      UploadCode, UploadDate, UploadFlag, 
+      UploadId, Content, Options, 
+      Reference, Anylysis)
+    values (#{type,jdbcType=BIT}, #{inputDate,jdbcType=DATE}, #{isDelete,jdbcType=BIT}, 
+      #{difficulty,jdbcType=INTEGER}, #{wrongTimes,jdbcType=INTEGER}, #{totalTimes,jdbcType=INTEGER}, 
+      #{errorRate,jdbcType=DOUBLE}, #{commentCount,jdbcType=INTEGER}, #{commentValue,jdbcType=INTEGER}, 
+      #{questionFrom,jdbcType=VARCHAR}, #{shareCount,jdbcType=INTEGER}, #{sumCommentValue,jdbcType=INTEGER}, 
+      #{uploadCode,jdbcType=VARCHAR}, #{uploadDate,jdbcType=TIMESTAMP}, #{uploadFlag,jdbcType=INTEGER}, 
+      #{uploadId,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}, #{options,jdbcType=LONGVARCHAR}, 
+      #{reference,jdbcType=LONGVARCHAR}, #{anylysis,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.education.hjrz.entity.Smart_topicWithBLOBs" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into smart_topic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="type != null" >
+        Type,
+      </if>
+      <if test="inputDate != null" >
+        InputDate,
+      </if>
+      <if test="isDelete != null" >
+        isDelete,
+      </if>
+      <if test="difficulty != null" >
+        Difficulty,
+      </if>
+      <if test="wrongTimes != null" >
+        WrongTimes,
+      </if>
+      <if test="totalTimes != null" >
+        TotalTimes,
+      </if>
+      <if test="errorRate != null" >
+        ErrorRate,
+      </if>
+      <if test="commentCount != null" >
+        CommentCount,
+      </if>
+      <if test="commentValue != null" >
+        CommentValue,
+      </if>
+      <if test="questionFrom != null" >
+        QuestionFrom,
+      </if>
+      <if test="shareCount != null" >
+        ShareCount,
+      </if>
+      <if test="sumCommentValue != null" >
+        SumCommentValue,
+      </if>
+      <if test="uploadCode != null" >
+        UploadCode,
+      </if>
+      <if test="uploadDate != null" >
+        UploadDate,
+      </if>
+      <if test="uploadFlag != null" >
+        UploadFlag,
+      </if>
+      <if test="uploadId != null" >
+        UploadId,
+      </if>
+      <if test="content != null" >
+        Content,
+      </if>
+      <if test="options != null" >
+        Options,
+      </if>
+      <if test="reference != null" >
+        Reference,
+      </if>
+      <if test="anylysis != null" >
+        Anylysis,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="type != null" >
+        #{type,jdbcType=BIT},
+      </if>
+      <if test="inputDate != null" >
+        #{inputDate,jdbcType=DATE},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="difficulty != null" >
+        #{difficulty,jdbcType=INTEGER},
+      </if>
+      <if test="wrongTimes != null" >
+        #{wrongTimes,jdbcType=INTEGER},
+      </if>
+      <if test="totalTimes != null" >
+        #{totalTimes,jdbcType=INTEGER},
+      </if>
+      <if test="errorRate != null" >
+        #{errorRate,jdbcType=DOUBLE},
+      </if>
+      <if test="commentCount != null" >
+        #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentValue != null" >
+        #{commentValue,jdbcType=INTEGER},
+      </if>
+      <if test="questionFrom != null" >
+        #{questionFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="shareCount != null" >
+        #{shareCount,jdbcType=INTEGER},
+      </if>
+      <if test="sumCommentValue != null" >
+        #{sumCommentValue,jdbcType=INTEGER},
+      </if>
+      <if test="uploadCode != null" >
+        #{uploadCode,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadDate != null" >
+        #{uploadDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uploadFlag != null" >
+        #{uploadFlag,jdbcType=INTEGER},
+      </if>
+      <if test="uploadId != null" >
+        #{uploadId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="options != null" >
+        #{options,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="reference != null" >
+        #{reference,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="anylysis != null" >
+        #{anylysis,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.education.hjrz.entity.Smart_topicWithBLOBs" >
+    update smart_topic
+    <set >
+      <if test="type != null" >
+        Type = #{type,jdbcType=BIT},
+      </if>
+      <if test="inputDate != null" >
+        InputDate = #{inputDate,jdbcType=DATE},
+      </if>
+      <if test="isDelete != null" >
+        isDelete = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="difficulty != null" >
+        Difficulty = #{difficulty,jdbcType=INTEGER},
+      </if>
+      <if test="wrongTimes != null" >
+        WrongTimes = #{wrongTimes,jdbcType=INTEGER},
+      </if>
+      <if test="totalTimes != null" >
+        TotalTimes = #{totalTimes,jdbcType=INTEGER},
+      </if>
+      <if test="errorRate != null" >
+        ErrorRate = #{errorRate,jdbcType=DOUBLE},
+      </if>
+      <if test="commentCount != null" >
+        CommentCount = #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentValue != null" >
+        CommentValue = #{commentValue,jdbcType=INTEGER},
+      </if>
+      <if test="questionFrom != null" >
+        QuestionFrom = #{questionFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="shareCount != null" >
+        ShareCount = #{shareCount,jdbcType=INTEGER},
+      </if>
+      <if test="sumCommentValue != null" >
+        SumCommentValue = #{sumCommentValue,jdbcType=INTEGER},
+      </if>
+      <if test="uploadCode != null" >
+        UploadCode = #{uploadCode,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadDate != null" >
+        UploadDate = #{uploadDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uploadFlag != null" >
+        UploadFlag = #{uploadFlag,jdbcType=INTEGER},
+      </if>
+      <if test="uploadId != null" >
+        UploadId = #{uploadId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        Content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="options != null" >
+        Options = #{options,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="reference != null" >
+        Reference = #{reference,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="anylysis != null" >
+        Anylysis = #{anylysis,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.education.hjrz.entity.Smart_topicWithBLOBs" >
+    update smart_topic
+    set Type = #{type,jdbcType=BIT},
+      InputDate = #{inputDate,jdbcType=DATE},
+      isDelete = #{isDelete,jdbcType=BIT},
+      Difficulty = #{difficulty,jdbcType=INTEGER},
+      WrongTimes = #{wrongTimes,jdbcType=INTEGER},
+      TotalTimes = #{totalTimes,jdbcType=INTEGER},
+      ErrorRate = #{errorRate,jdbcType=DOUBLE},
+      CommentCount = #{commentCount,jdbcType=INTEGER},
+      CommentValue = #{commentValue,jdbcType=INTEGER},
+      QuestionFrom = #{questionFrom,jdbcType=VARCHAR},
+      ShareCount = #{shareCount,jdbcType=INTEGER},
+      SumCommentValue = #{sumCommentValue,jdbcType=INTEGER},
+      UploadCode = #{uploadCode,jdbcType=VARCHAR},
+      UploadDate = #{uploadDate,jdbcType=TIMESTAMP},
+      UploadFlag = #{uploadFlag,jdbcType=INTEGER},
+      UploadId = #{uploadId,jdbcType=INTEGER},
+      Content = #{content,jdbcType=LONGVARCHAR},
+      Options = #{options,jdbcType=LONGVARCHAR},
+      Reference = #{reference,jdbcType=LONGVARCHAR},
+      Anylysis = #{anylysis,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.education.hjrz.entity.Smart_topic" >
+    update smart_topic
+    set Type = #{type,jdbcType=BIT},
+      InputDate = #{inputDate,jdbcType=DATE},
+      isDelete = #{isDelete,jdbcType=BIT},
+      Difficulty = #{difficulty,jdbcType=INTEGER},
+      WrongTimes = #{wrongTimes,jdbcType=INTEGER},
+      TotalTimes = #{totalTimes,jdbcType=INTEGER},
+      ErrorRate = #{errorRate,jdbcType=DOUBLE},
+      CommentCount = #{commentCount,jdbcType=INTEGER},
+      CommentValue = #{commentValue,jdbcType=INTEGER},
+      QuestionFrom = #{questionFrom,jdbcType=VARCHAR},
+      ShareCount = #{shareCount,jdbcType=INTEGER},
+      SumCommentValue = #{sumCommentValue,jdbcType=INTEGER},
+      UploadCode = #{uploadCode,jdbcType=VARCHAR},
+      UploadDate = #{uploadDate,jdbcType=TIMESTAMP},
+      UploadFlag = #{uploadFlag,jdbcType=INTEGER},
+      UploadId = #{uploadId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

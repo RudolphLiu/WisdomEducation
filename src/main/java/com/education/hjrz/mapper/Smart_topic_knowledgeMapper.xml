@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.education.hjrz.dao.Smart_topic_knowledgeMapper" >
+  <resultMap id="BaseResultMap" type="com.education.hjrz.entity.Smart_topic_knowledge" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="isDelete" property="isDelete" jdbcType="BIT" />
+    <result column="Knowledge_id" property="knowledge_id" jdbcType="INTEGER" />
+    <result column="TopicID_id" property="topicID_id" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, isDelete, Knowledge_id, TopicID_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from smart_topic_knowledge
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from smart_topic_knowledge
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.education.hjrz.entity.Smart_topic_knowledge" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into smart_topic_knowledge (isDelete, Knowledge_id, TopicID_id
+      )
+    values (#{isDelete,jdbcType=BIT}, #{knowledge_id,jdbcType=INTEGER}, #{topicID_id,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.education.hjrz.entity.Smart_topic_knowledge" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into smart_topic_knowledge
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="isDelete != null" >
+        isDelete,
+      </if>
+      <if test="knowledge_id != null" >
+        Knowledge_id,
+      </if>
+      <if test="topicID_id != null" >
+        TopicID_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="knowledge_id != null" >
+        #{knowledge_id,jdbcType=INTEGER},
+      </if>
+      <if test="topicID_id != null" >
+        #{topicID_id,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.education.hjrz.entity.Smart_topic_knowledge" >
+    update smart_topic_knowledge
+    <set >
+      <if test="isDelete != null" >
+        isDelete = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="knowledge_id != null" >
+        Knowledge_id = #{knowledge_id,jdbcType=INTEGER},
+      </if>
+      <if test="topicID_id != null" >
+        TopicID_id = #{topicID_id,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.education.hjrz.entity.Smart_topic_knowledge" >
+    update smart_topic_knowledge
+    set isDelete = #{isDelete,jdbcType=BIT},
+      Knowledge_id = #{knowledge_id,jdbcType=INTEGER},
+      TopicID_id = #{topicID_id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

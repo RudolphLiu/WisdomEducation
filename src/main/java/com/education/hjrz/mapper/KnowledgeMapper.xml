@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.education.hjrz.dao.KnowledgeMapper" >
+  <resultMap id="BaseResultMap" type="com.education.hjrz.entity.Knowledge" >
+    <result column="id" property="id" jdbcType="BIGINT" />
+    <result column="courseId" property="courseId" jdbcType="BIGINT" />
+    <result column="parentId" property="parentId" jdbcType="BIGINT" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="knowledgeName" property="knowledgeName" jdbcType="VARCHAR" />
+    <result column="sortNo" property="sortNo" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="com.education.hjrz.entity.Knowledge" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into knowledge (courseId, parentId, level, 
+      knowledgeName, sortNo, status
+      )
+    values (#{courseId,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{level,jdbcType=INTEGER}, 
+      #{knowledgeName,jdbcType=VARCHAR}, #{sortNo,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.education.hjrz.entity.Knowledge" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into knowledge
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="courseId != null" >
+        courseId,
+      </if>
+      <if test="parentId != null" >
+        parentId,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="knowledgeName != null" >
+        knowledgeName,
+      </if>
+      <if test="sortNo != null" >
+        sortNo,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="courseId != null" >
+        #{courseId,jdbcType=BIGINT},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="knowledgeName != null" >
+        #{knowledgeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sortNo != null" >
+        #{sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>
