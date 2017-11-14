@@ -10,12 +10,27 @@
   <sql id="Base_Column_List" >
     id, CourseName, isDelete, CourseID
   </sql>
+  
+  <select id="selectSmart_course" resultMap="BaseResultMap" parameterType="com.education.hjrz.entity.Smart_course">
+  		 select 
+    	<include refid="Base_Column_List" /> 
+    	from smart_course
+  </select>
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from smart_course
     where id = #{id,jdbcType=INTEGER}
   </select>
+  
+  <select id="selectByCourseId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from smart_course
+    where CourseID = #{CourseID,jdbcType=INTEGER}
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from smart_course
     where id = #{id,jdbcType=INTEGER}

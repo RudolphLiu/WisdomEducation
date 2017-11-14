@@ -13,16 +13,32 @@
   <sql id="Base_Column_List" >
     id, Name, PKnow, KnowType, TopicNum, Level, isDelete
   </sql>
+  
+  <select id="selectSmart_knowledge_infos" resultMap="BaseResultMap" parameterType="com.education.hjrz.entity.Smart_knowledge_info">
+  	select 
+  	<include refid="Base_Column_List" /> 
+  	from smart_knowledge_info
+  </select>
+  
+  <select id="selectRootNodeAlive" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from smart_knowledge_info
+  	where id = 1 and isDelete = 0
+  </select>
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from smart_knowledge_info
     where id = #{id,jdbcType=INTEGER}
   </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from smart_knowledge_info
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  
   <insert id="insert" parameterType="com.education.hjrz.entity.Smart_knowledge_info" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
@@ -34,6 +50,7 @@
       #{topicNum,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, #{isDelete,jdbcType=BIT}
       )
   </insert>
+  
   <insert id="insertSelective" parameterType="com.education.hjrz.entity.Smart_knowledge_info" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
@@ -80,6 +97,7 @@
       </if>
     </trim>
   </insert>
+  
   <update id="updateByPrimaryKeySelective" parameterType="com.education.hjrz.entity.Smart_knowledge_info" >
     update smart_knowledge_info
     <set >
@@ -104,6 +122,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
   <update id="updateByPrimaryKey" parameterType="com.education.hjrz.entity.Smart_knowledge_info" >
     update smart_knowledge_info
     set Name = #{name,jdbcType=VARCHAR},
@@ -114,4 +133,10 @@
       isDelete = #{isDelete,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+	
+	<update id="updatePKnowByMapsId" parameterType="com.education.hjrz.converter.KnowledgePknowConverter">
+		update smart_knowledge_info 
+		<set>PKnow = #{newpKnow,jdbcType=INTEGER}</set> 
+		 where PKnow = #{oldpKnow,jdbcType=INTEGER}  
+	</update>
 </mapper>

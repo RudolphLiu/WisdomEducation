@@ -11,6 +11,7 @@
     <result column="kuPrice" property="kuPrice" jdbcType="INTEGER" />
     <result column="withJxPrice" property="withJxPrice" jdbcType="INTEGER" />
   </resultMap>
+  
   <insert id="insert" parameterType="com.education.hjrz.entity.Questiontype" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()

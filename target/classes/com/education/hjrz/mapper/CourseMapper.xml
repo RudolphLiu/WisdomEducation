@@ -16,6 +16,29 @@
     <result column="sortNo" property="sortNo" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
+  
+  <sql id="Base_Column_List">
+			id,
+			studyType,
+			courseName,
+			tikuFlag,
+			resourceFlag,
+			evaluationFlag,
+			paperDiscount,
+			paperAnaDiscount,
+			guidLearnPrice,
+			courseWarePrice,
+			teachPlanPrice,
+			sortNo,
+			status
+	</sql>
+  
+  <select id="selectCourses" resultMap="BaseResultMap" parameterType="com.education.hjrz.entity.Course">
+  		 select 
+    	<include refid="Base_Column_List" /> 
+    	from course
+  </select>
+  
   <insert id="insert" parameterType="com.education.hjrz.entity.Course" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
@@ -31,6 +54,7 @@
       #{teachPlanPrice,jdbcType=INTEGER}, #{sortNo,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}
       )
   </insert>
+  
   <insert id="insertSelective" parameterType="com.education.hjrz.entity.Course" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
@@ -113,4 +137,6 @@
       </if>
     </trim>
   </insert>
+  
+  
 </mapper>

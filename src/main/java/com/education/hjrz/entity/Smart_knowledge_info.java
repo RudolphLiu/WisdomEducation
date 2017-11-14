@@ -14,8 +14,24 @@ public class Smart_knowledge_info {
     private Integer level;
 
     private Boolean isDelete;
+    
+    public Smart_knowledge_info(Integer id, String name, Integer pKnow, Integer knowType, Integer topicNum,
+			Integer level, Boolean isDelete) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.PKnow = pKnow;
+		this.knowType = knowType;
+		this.topicNum = topicNum;
+		this.level = level;
+		this.isDelete = isDelete;
+	}
 
-    public Integer getId() {
+	public Smart_knowledge_info() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Integer getId() {
         return id;
     }
 
