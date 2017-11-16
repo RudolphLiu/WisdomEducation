@@ -1,5 +1,7 @@
 package com.education.hjrz.dao;
 
+import java.util.List;
+
 import com.education.hjrz.entity.Smart_topic_knowledge;
 
 public interface Smart_topic_knowledgeMapper {
@@ -14,4 +16,5 @@ public interface Smart_topic_knowledgeMapper {
     int updateByPrimaryKeySelective(Smart_topic_knowledge record);
 
     int updateByPrimaryKey(Smart_topic_knowledge record);
+    
 }

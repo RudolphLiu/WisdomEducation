@@ -1,5 +1,7 @@
 package com.education.hjrz.dao;
 
+import java.util.List;
+
 import com.education.hjrz.entity.Smart_topic;
 import com.education.hjrz.entity.Smart_topicWithBLOBs;
 
@@ -17,4 +19,6 @@ public interface Smart_topicMapper {
     int updateByPrimaryKeyWithBLOBs(Smart_topicWithBLOBs record);
 
     int updateByPrimaryKey(Smart_topic record);
+    
+    List<Smart_topic> selectSmart_topic(Smart_topic record);
 }

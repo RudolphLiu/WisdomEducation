@@ -50,6 +50,15 @@
     bodyHtml, bodyText, optionHtmlList, answer, answerHtml, anylysisHtml, commentHtml, 
     subQuestionMon
   </sql>
+  
+  <select id="SelectquestionmonWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.education.hjrz.entity.QuestionmonWithBLOBs">
+  		select
+  		*
+  		from
+  		questionmon
+  </select>
+  
+  
   <insert id="insert" parameterType="com.education.hjrz.entity.QuestionmonWithBLOBs" >
     <selectKey resultType="java.lang.Long" keyProperty="questionId" order="AFTER" >
       SELECT LAST_INSERT_ID()

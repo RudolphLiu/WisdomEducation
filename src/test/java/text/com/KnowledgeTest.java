@@ -19,11 +19,17 @@ import com.education.hjrz.converter.KnowledgePknowConverter;
 import com.education.hjrz.core.DynamicDataSourceHolder;
 import com.education.hjrz.entity.Course;
 import com.education.hjrz.entity.Knowledge;
+import com.education.hjrz.entity.QuestionmonWithBLOBs;
 import com.education.hjrz.entity.Smart_knowledge_info;
+import com.education.hjrz.entity.Smart_topicWithBLOBs;
+import com.education.hjrz.entity.Smart_topic_knowledge;
 import com.education.hjrz.service.CourseService;
 import com.education.hjrz.service.KnowledgeService;
+import com.education.hjrz.service.QuestionmonService;
 import com.education.hjrz.service.Smart_courseService;
 import com.education.hjrz.service.Smart_knowledge_infoService;
+import com.education.hjrz.service.Smart_topicService;
+import com.education.hjrz.service.Smart_topic_knowledgeService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -53,8 +59,18 @@ public class KnowledgeTest {
       @Autowired
       private Smart_courseService smart_courseService;
       
-      //设置ID索引
-      public static Map<String,Integer> maps_id = new HashMap<String,Integer>();
+      @Autowired
+      private QuestionmonService questionmonService;
+      
+      @Autowired
+      private Smart_topicService smart_topicService;
+      
+      @Autowired
+      private Smart_topic_knowledgeService smart_topic_knowledgeService;
+      
+      public Map<String,Integer> maps_questionId = new HashMap<String,Integer>();
+      
+      public Map<String,Integer> maps_id = new HashMap<String,Integer>();
       
       
       public void ExportRootNode(String datasource)
@@ -136,12 +152,67 @@ public class KnowledgeTest {
   			}
       }
       
+      public void ExportQuestionmon(String dataSource) throws Exception
+      {
+    	  DynamicDataSourceHolder.setDataSource(dataSource);
+    	  List<QuestionmonWithBLOBs> questionList = questionmonService.findQuestionmonWithBLOBs(null);
+    	  //开始写入
+    	  DynamicDataSourceHolder.setDataSource("dataSource2");
+    	  for(QuestionmonWithBLOBs qs:questionList)
+	  		{
+    		  Integer oldQuestionID = qs.getQuestionId().intValue();
+    		  Smart_topicWithBLOBs smart_topicWithBLOBs = new Smart_topicWithBLOBs();
+    		  smart_topicWithBLOBs.setType(false);
+    		  smart_topicWithBLOBs.setContent(qs.getBodyHtml());
+    		  smart_topicWithBLOBs.setInputDate(qs.getInputDate());
+    		  String repacestr = qs.getOptionHtmlList().replaceAll("\\$\\$\\$\\$\\$","##");
+    		  smart_topicWithBLOBs.setOptions(repacestr);
+    		  smart_topicWithBLOBs.setReference(qs.getAnswer());
+    		  smart_topicWithBLOBs.setDifficulty(qs.getDifficulty());
+    		  smart_topicWithBLOBs.setWrongTimes(0);
+    		  smart_topicWithBLOBs.setTotalTimes(0);
+    		  smart_topicWithBLOBs.setErrorRate(0.0);
+    		  smart_topicWithBLOBs.setAnylysis(qs.getAnylysisHtml());
+    		  smart_topicWithBLOBs.setCommentCount(qs.getCommentCount());
+    		  smart_topicWithBLOBs.setCommentValue(qs.getCommentValue());
+    		  smart_topicWithBLOBs.setSumCommentValue(qs.getSumCommentValue());
+    		  smart_topicWithBLOBs.setShareCount(qs.getShareCount());
+    		  smart_topicWithBLOBs.setQuestionFrom(qs.getQuestionFrom());
+    		  smart_topicWithBLOBs.setUploadFlag(qs.getUploadFlag());
+    		  smart_topicWithBLOBs.setUploadId(qs.getUploadId().intValue());
+    		  smart_topicWithBLOBs.setUploadCode(qs.getUploadCode());
+    		  smart_topicWithBLOBs.setUploadDate(qs.getUploadDate());
+    		  smart_topicWithBLOBs.setIsDelete(false);
+    		  smart_topicService.addsmart_topic(smart_topicWithBLOBs);
+    		  Integer newQuestionID = smart_topicWithBLOBs.getId();
+    		  maps_questionId.put(oldQuestionID.toString(),newQuestionID);
+	  		}
+      }
+      
+      public void ExportQuestionandToKnowledge(String dataSource)throws Exception
+      {
+    	  DynamicDataSourceHolder.setDataSource(dataSource);
+    	  List<QuestionmonWithBLOBs> questionList = questionmonService.findQuestionmonWithBLOBs(null);
+    	  for(QuestionmonWithBLOBs qs:questionList)
+    	  {
+    		  Integer newKnowledge_id = maps_id.get(qs.getThirdKnowledgeId().toString());
+    		  Integer newTopicID_id = maps_questionId.get(qs.getQuestionId().toString());
+    		  Smart_topic_knowledge smart_topic_knowledge = new Smart_topic_knowledge();
+    		  smart_topic_knowledge.setKnowledge_id(newKnowledge_id);
+    		  smart_topic_knowledge.setTopicID_id(newTopicID_id);
+    		  smart_topic_knowledge.setIsDelete(false);
+    		  smart_topic_knowledgeService.addSmart_topic_knowledge(smart_topic_knowledge);
+    	  }
+      }
+      
       @Test
       public void test() {
     	try {
     		ExportRootNode("dataSource2");
-    		/*ExportCourseToKnowledge("dataSource2");*/
+    		ExportCourseToKnowledge("dataSource2");
     		ExportKnowledgesToknowledge("dataSource2");
+    		ExportQuestionmon("dataSource2");
+    		ExportQuestionandToKnowledge("dataSource2");
 		} catch (Exception e){
 			System.out.println("fail");
 		}

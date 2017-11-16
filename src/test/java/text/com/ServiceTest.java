@@ -1,6 +1,8 @@
 package text.com;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -40,21 +42,34 @@ public class ServiceTest {
       @After
       public void tearDown() throws Exception {}
       
-      @Autowired
-      private CourseService CourseService;
+      public Map<String,Integer> maps_id1 = new HashMap<String,Integer>();
+	  
+	  
+	  public Map<String,Integer> maps_id2 = new HashMap<String,Integer>();
       
+	  public void exeee1()
+	  {
+		  maps_id1.put("12123",11121212);
+	  }
+	  
+	  public void exefaef2()
+	  {
+		  maps_id2.put("1152",1213123);
+	  }
+	  
+	  public void dasda()
+	  {
+		  Integer oldid1 = 12123;
+		  Integer oldid2 = 1152;
+		  Integer newid = maps_id1.get(oldid1.toString());
+		  Integer newid2 = maps_id2.get(oldid2.toString());
+		  System.out.println(newid +"\\\\" +newid2);
+	  }
+	  
       @Test
       public void test() {
-    	try {
-    		DynamicDataSourceHolder.setDataSource("dataSource2");
-    		Course course = null;
-    		List<Course> courses = CourseService.findCourse(course);
-    		for(Course co:courses)
-    		{
-    			System.out.println(co.getId()+"|"+co.getStudyType()+"|"+co.getCourseName()+"|");
-    		}
-		} catch (Exception e) {
-			System.out.println("fail");
-		}
+    	  exeee1();
+		  exefaef2();
+		  dasda(); 
       }
 }
